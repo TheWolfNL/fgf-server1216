@@ -162,6 +162,22 @@ nav.day-nav {
   opacity: 0.5;
 }
 
+.day-tab.preview {
+  border-style: dashed;
+}
+
+.preview-notice {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 20px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px dashed var(--points);
+  background: rgba(255, 181, 69, 0.08);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
 .phase-tag {
   text-align: center;
   text-transform: uppercase;

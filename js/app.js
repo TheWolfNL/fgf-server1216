@@ -94,7 +94,6 @@
       const btn = document.createElement("button");
       btn.className = "day-tab";
       btn.type = "button";
-      btn.textContent = day.label;
       btn.disabled = !day.available;
       btn.setAttribute("aria-pressed", String(day.id === state.activeDayId));
       if (day.id === state.activeDayId) btn.classList.add("active");
@@ -102,6 +101,11 @@
         btn.title = "No scoring data yet for this day";
         btn.classList.add("upcoming");
       }
+      if (day.available && day.preview) {
+        btn.classList.add("preview");
+        btn.title = "Data's ready, but this day hasn't started yet — details may still change before it goes live";
+      }
+      btn.textContent = day.label;
       btn.addEventListener("click", () => {
         if (!day.available) return;
         state.activeDayId = day.id;
@@ -206,6 +210,14 @@
     phaseTag.className = "phase-tag";
     phaseTag.textContent = day.phase;
     container.appendChild(phaseTag);
+
+    if (day.preview) {
+      const previewNotice = document.createElement("p");
+      previewNotice.className = "preview-notice";
+      previewNotice.textContent =
+        "Preview — this day hasn't started yet. Point values and requirements are based on the current data, but double-check in-game once it goes live in case anything changes.";
+      container.appendChild(previewNotice);
+    }
 
     day.sections.forEach((section) => {
       const sectionEl = document.createElement("section");
