@@ -9,6 +9,23 @@
     return "+" + n.toLocaleString("en-US");
   }
 
+  function renderAlertBanner() {
+    const el = document.getElementById("alert-banner");
+    if (!el) return;
+    const alert = EVENT_DATA.alertBanner;
+    if (!alert) {
+      el.hidden = true;
+      return;
+    }
+    el.hidden = false;
+    el.innerHTML =
+      (alert.image ? '<img class="alert-banner-image" src="' + alert.image + '" alt="">' : "") +
+      '<div class="alert-banner-body">' +
+      '<p class="alert-banner-title">' + alert.title + '</p>' +
+      '<p class="alert-banner-message">' + alert.message + '</p>' +
+      '</div>';
+  }
+
   function getVisitorTimeZone() {
     try {
       return Intl.DateTimeFormat().resolvedOptions().timeZone || "your local time";
@@ -128,6 +145,21 @@
     let markup = "";
     if (item.fragmentGallery) {
       markup += fragmentGalleryMarkup(item.fragmentGallery);
+    } else if (item.imageRow) {
+      const tiles = item.imageRow
+        .map(
+          (it) =>
+            '<div class="image-row-tile"><img src="' +
+            it.image +
+            '" alt="' +
+            (it.alt || "") +
+            '" loading="lazy"></div>'
+        )
+        .join("");
+      markup += '<div class="image-row">' + tiles + "</div>";
+      if (item.imageCaption) {
+        markup += '<p class="item-image-caption">' + item.imageCaption + "</p>";
+      }
     } else if (item.image) {
       markup += '<img class="item-image" src="' + item.image + '" alt="" loading="lazy">';
       if (item.imageCaption) {
@@ -208,9 +240,12 @@
   }
 
   function init() {
+    renderAlertBanner();
     renderTimezoneBanner();
+    const current = EVENT_DATA.days.find((d) => d.id === EVENT_DATA.currentDayId && d.available);
     const firstAvailable = EVENT_DATA.days.find((d) => d.available);
-    state.activeDayId = firstAvailable ? firstAvailable.id : EVENT_DATA.days[0].id;
+    const fallback = firstAvailable || EVENT_DATA.days[0];
+    state.activeDayId = (current || fallback).id;
     renderDayNav();
     renderActiveDay();
   }

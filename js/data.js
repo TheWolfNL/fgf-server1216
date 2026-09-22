@@ -7,7 +7,9 @@
  *   items[]           -> {
  *     title, points, description,
  *     image,          // optional path under assets/images/, or null for a placeholder
- *     imageCaption,   // optional short caption shown under the image
+ *     imageCaption,   // optional short caption shown under the image (also used by imageRow)
+ *     imageRow: [{ image, alt }, ...],  // optional, a plain side-by-side row of self-contained icons
+ *                                       // (each already has its own background baked in — unlike fragmentGallery)
  *     fragmentGallery: {  // optional, renders a tight mosaic of fragment cards
  *       rarity,           // "legendary" | "epic" -> picks the CSS background color
  *       rows: [3, 3, 3],  // how many tiles per row, in order (rows sum to items.length)
@@ -29,9 +31,21 @@
 
 const EVENT_DATA = {
   eventName: "Dominion Warzone",
+  // Shown as a prominent banner at the top of every page/day. Set to null
+  // to hide it once it's no longer relevant.
+  alertBanner: {
+    image: "assets/images/items/expansion-blueprint.png",
+    title: "Hold your Expansion Blueprints",
+    message:
+      "Don't use Expansion Blueprints until Day 5. Whether our server Attacks or Defends on Day 6 depends on the Offense & Defense Clash results across Days 1–5 — using them early could mean building for the wrong role.",
+  },
   // Daily scoring reset, in UTC. Used to convert to each visitor's local time.
   resetHourUTC: 0,
   resetMinuteUTC: 0,
+  // Which day's tab is shown by default. Bump this each time a new day's
+  // data is added, so returning visitors land on the current day instead
+  // of always the first one that has data.
+  currentDayId: 3,
   days: [
     {
       id: 1,
@@ -169,12 +183,8 @@ const EVENT_DATA = {
               image: "assets/images/items/credits.png",
               imageCaption: "Credits, earned from qualifying shop pack purchases.",
               notes: {
-                findWhere: [
-                  "Awarded automatically when purchasing qualifying packs in the shop — check a pack's reward list for the Credits icon shown here before buying",
-                ],
-                useWhere: [
-                  "Spent in the dedicated Credit shop for exclusive items — separate from the general shop",
-                ],
+                findWhere: ["Received when purchasing packs", "Rewards"],
+                useWhere: ["Discount shop", "Regular shop"],
               },
             },
             {
@@ -279,7 +289,137 @@ const EVENT_DATA = {
         },
       ],
     },
-    { id: 3, label: "Day 3", phase: "Preparation", available: false, sections: [] },
+    {
+      id: 3,
+      label: "Day 3",
+      phase: "Preparation",
+      available: true,
+      sections: [
+        {
+          title: "Technology & Crew",
+          items: [
+            {
+              title: "Perform 1 Map Search",
+              points: 180000,
+              description:
+                "Map Search scans the galaxy map around your position for points of interest — Ruins, monsters, and other targets. By far the single highest-value action in this table, so use every search you have during the event window rather than letting them sit banked.",
+              image: "assets/images/tech/map-search.png",
+              imageCaption: "Raych Seldon's Chrono Map — the Map Search screen.",
+              notes: {
+                findWhere: [
+                  "When recruiting crew with a Deep Space Beacon, there's a small chance to receive a Stellar Fragment I–V (used for this search) — otherwise buy a random or choice box from the Valor Shop",
+                ],
+                useWhere: ["Ship → Crew → Crew Member Recruitment → tab at the bottom"],
+              },
+            },
+            {
+              title: "Every 1m Technology Speedups consumed",
+              points: 16,
+              description:
+                "Counts every 1 minute of Technology (research) Speedup you consume, added up across all your speedup use today. Speedups come in several durations (5m up to 8h+); queuing a long research item and dumping speedups into it is a simple, reliable way to rack up a large chunk of these points in one action.",
+              imageRow: [
+                { image: "assets/images/tech/speedup-5m.png", alt: "5 minute Technology Speedup" },
+                { image: "assets/images/tech/speedup-15m.png", alt: "15 minute Technology Speedup" },
+                { image: "assets/images/tech/speedup-1h.png", alt: "1 hour Technology Speedup" },
+                { image: "assets/images/tech/speedup-3h.png", alt: "3 hour Technology Speedup" },
+                { image: "assets/images/tech/speedup-8h.png", alt: "8 hour Technology Speedup" },
+              ],
+              imageCaption: "Technology Speedups — every denomination counts toward the same row.",
+              notes: {
+                findWhere: [
+                  "Research/Speedup rewards from commissions, events, and shop bundles",
+                ],
+                useWhere: [
+                  "Research (Technology) screen → queue an item → apply Speedups to reduce its timer",
+                ],
+              },
+            },
+            {
+              title: "Spend 1× Computational Component",
+              points: 200,
+              description:
+                "A crafting/research material used on the tech side of progression. If you're holding a stock of these, spending them during the event turns otherwise-idle inventory into event points.",
+              image: "assets/images/tech/computational-component.png",
+              imageCaption: "Computational Component.",
+              notes: {
+                findWhere: ["Event rewards", "Computational Component pack"],
+                useWhere: ["Technology → Commerce Guild Duel tree", "Combat Craft Modification tree"],
+              },
+            },
+            {
+              title: "Spend 1× Deep Space Beacon",
+              points: 400,
+              description:
+                "Deep Space Beacons relate to the Ruins/exploration system. Spend any you have stockpiled during the event for the points, same logic as the other \"spend\" rows in this table.",
+              image: "assets/images/tech/deep-space-beacon.png",
+              imageCaption: "Deep Space Beacon.",
+              notes: {
+                findWhere: ["Commerce Guild shop", "Discount shop", "Beacon pack"],
+                useWhere: ["Ship → Crew → Crew Member Recruitment"],
+              },
+            },
+            {
+              title: "Spend 1× Echo Module",
+              points: 40,
+              description:
+                "A lower-value spend item, likely tied to the same exploration/Ruins system as Deep Space Beacons and Echoes of Deep Space below. Cheap to spend, so clear your stock of these before worrying about the higher-value rows.",
+              image: "assets/images/tech/echo-module.png",
+              imageCaption: "Echo Module.",
+              notes: {
+                findWhere: ["Crew Recruitment rewards", "Beacon pack / Map pack"],
+                useWhere: ["Ship → Crew → Heroic Crew Assignment → Enhance Nexus"],
+              },
+            },
+            {
+              title: "Spend 1× Echoes of Deep Space",
+              points: 8000,
+              description:
+                "One of the best points-per-item spends in this whole table. If you have any of these banked, spending them during the event window is a priority — don't save them for later.",
+              image: "assets/images/tech/echoes-of-deep-space.png",
+              imageCaption: "Echoes of Deep Space.",
+              notes: {
+                findWhere: ["Crew Recruitment rewards", "Beacon pack / Map pack"],
+                useWhere: ["Ship → Crew → Heroic Crew Assignment → Enhance Nexus"],
+              },
+            },
+            {
+              title: "Earn 1 Credit through packs",
+              points: 4,
+              description:
+                "Same as Day 2 — Credits earned automatically from qualifying shop pack purchases. Time any planned purchase during the event window for the extra points.",
+              image: "assets/images/items/credits.png",
+              imageCaption: "Credits, earned from qualifying shop pack purchases.",
+              notes: {
+                findWhere: ["Received when purchasing packs", "Rewards"],
+                useWhere: ["Discount shop", "Regular shop"],
+              },
+            },
+            {
+              title: "Excavate a Ruin of Legendary quality once",
+              points: 15000,
+              description:
+                "Ruins come in different quality tiers, and excavating a Legendary-quality one is a one-time flat bonus for the day — it doesn't stack with repeats. Prioritize a Legendary Ruin over lower-quality ones if you're choosing which to excavate today.",
+              image: "assets/images/tech/legendary-ruins.png",
+              imageCaption: "A Legendary-quality Ruin, with its excavation timer.",
+              notes: {
+                useWhere: ["Ruins → Excavation tab"],
+              },
+            },
+            {
+              title: "Successfully plunder a Ruin 1 time",
+              points: 25000,
+              description:
+                "Plundering (raiding another player's or an NPC's Ruin) is worth even more than excavating one yourself. Only counts on a successful plunder, so pick a target you can actually beat.",
+              image: "assets/images/tech/plunder-example.png",
+              imageCaption: "A Ruin already claimed by another player — a plunder target.",
+              notes: {
+                useWhere: ["Ruins → Plunder tab"],
+              },
+            },
+          ],
+        },
+      ],
+    },
     { id: 4, label: "Day 4", phase: "Preparation", available: false, sections: [] },
     { id: 5, label: "Day 5", phase: "Preparation", available: false, sections: [] },
     { id: 6, label: "Day 6", phase: "Battle Day", available: false, sections: [] },
