@@ -2,11 +2,12 @@
  * Dominion Warzone scoring data.
  *
  * Structure:
- *   EVENT_DATA.days[] -> { id, label, phase, available, preview, sections[] }
+ *   EVENT_DATA.days[] -> { id, label, phase, available, sections[] }
  *     available: tab is clickable at all (false = greyed out, no data yet)
- *     preview:   data is ready but this day hasn't started in-game yet —
- *                tab shows a "Preview" badge and the content area shows a
- *                banner saying details may still change before it goes live
+ *     (there's no manual "preview" flag — a day with available:true whose
+ *     start date, per day1StartUTC below, hasn't arrived yet is treated as
+ *     a preview automatically: dashed tab, banner in the content area, and
+ *     it's never the auto-selected default day until its date arrives)
  *   sections[]        -> { title, items[] }
  *   items[]           -> {
  *     title, points, description,
@@ -46,12 +47,12 @@ const EVENT_DATA = {
   // Daily scoring reset, in UTC. Used to convert to each visitor's local time.
   resetHourUTC: 0,
   resetMinuteUTC: 0,
-  // Which day's tab is shown by default. This should be the day that's
-  // actually live in-game right now — bump it once that day's reset
-  // happens, not as soon as you've added its data (a day can have
-  // `available: true` + `preview: true` so people can look ahead before
-  // then, without the page defaulting to it early).
-  currentDayId: 2,
+  // When Day 1's scoring window started, in UTC. Everything else (which
+  // day is "live" right now, which tab is shown by default, and which
+  // available days are auto-flagged as a "Preview") is computed from this
+  // plus each day's reset time — no manual bumping needed day to day.
+  // Only change this if the event's actual start date was wrong.
+  day1StartUTC: "2026-09-21T00:00:00Z",
   days: [
     {
       id: 1,
@@ -300,10 +301,6 @@ const EVENT_DATA = {
       label: "Day 3",
       phase: "Preparation",
       available: true,
-      // Data is ready, but this day hasn't started in-game yet — shown as
-      // a clearly-marked preview so people can plan ahead. Remove this
-      // flag (and bump currentDayId above) once its reset actually happens.
-      preview: true,
       sections: [
         {
           title: "Technology & Crew",

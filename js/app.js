@@ -9,6 +9,21 @@
     return "+" + n.toLocaleString("en-US");
   }
 
+  // Which day number is live right now, purely from day1StartUTC + today's
+  // date — this is what makes the default tab advance on its own each day.
+  function getLiveDayId() {
+    const start = new Date(EVENT_DATA.day1StartUTC).getTime();
+    const msPerDay = 24 * 60 * 60 * 1000;
+    const elapsedDays = Math.floor((Date.now() - start) / msPerDay);
+    return Math.max(1, elapsedDays + 1);
+  }
+
+  // A day is a "preview" if it has data but its start date hasn't arrived
+  // yet — no manual flag to maintain, just compare against getLiveDayId().
+  function isPreviewDay(day) {
+    return !!day.available && day.id > getLiveDayId();
+  }
+
   function renderAlertBanner() {
     const el = document.getElementById("alert-banner");
     if (!el) return;
@@ -101,7 +116,7 @@
         btn.title = "No scoring data yet for this day";
         btn.classList.add("upcoming");
       }
-      if (day.available && day.preview) {
+      if (isPreviewDay(day)) {
         btn.classList.add("preview");
         btn.title = "Data's ready, but this day hasn't started yet — details may still change before it goes live";
       }
@@ -211,7 +226,7 @@
     phaseTag.textContent = day.phase;
     container.appendChild(phaseTag);
 
-    if (day.preview) {
+    if (isPreviewDay(day)) {
       const previewNotice = document.createElement("p");
       previewNotice.className = "preview-notice";
       previewNotice.textContent =
@@ -254,10 +269,20 @@
   function init() {
     renderAlertBanner();
     renderTimezoneBanner();
-    const current = EVENT_DATA.days.find((d) => d.id === EVENT_DATA.currentDayId && d.available);
-    const firstAvailable = EVENT_DATA.days.find((d) => d.available);
-    const fallback = firstAvailable || EVENT_DATA.days[0];
-    state.activeDayId = (current || fallback).id;
+
+    const liveDayId = getLiveDayId();
+    // Prefer the day matching today's date. If it has no data yet, fall
+    // back to the most recent available day before it (so the page never
+    // defaults to a future preview), and only fall back further than that
+    // if nothing at all is available yet.
+    const exactMatch = EVENT_DATA.days.find((d) => d.id === liveDayId && d.available);
+    const mostRecentAvailable = EVENT_DATA.days
+      .filter((d) => d.available && d.id <= liveDayId)
+      .sort((a, b) => b.id - a.id)[0];
+    const anyAvailable = EVENT_DATA.days.find((d) => d.available);
+    const chosen = exactMatch || mostRecentAvailable || anyAvailable || EVENT_DATA.days[0];
+    state.activeDayId = chosen.id;
+
     renderDayNav();
     renderActiveDay();
   }
