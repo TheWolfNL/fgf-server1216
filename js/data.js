@@ -571,7 +571,12 @@ const EVENT_DATA = {
               points: 16,
               description:
                 "Counts every 1 minute of Build (base construction) Speedup you consume today. Same mechanic as the Technology Speedup row below, just for your construction queue instead of research — queue a long building upgrade and dump speedups into it.",
-              image: null,
+              imageRow: [
+                { image: "assets/images/tech/speedup-build-15m.png", alt: "15 minute Build Speedup" },
+                { image: "assets/images/tech/speedup-build-5m.png", alt: "5 minute Build Speedup" },
+                { image: "assets/images/tech/speedup-build-1m.png", alt: "1 minute Build Speedup" },
+              ],
+              imageCaption: "Build Speedups — every denomination counts toward this row.",
               notes: {
                 findWhere: ["Build/Speedup rewards from commissions, events, and shop bundles"],
                 useWhere: ["Base/Construction screen → queue an upgrade → apply Speedups to reduce its timer"],
@@ -600,7 +605,14 @@ const EVENT_DATA = {
               points: 16,
               description:
                 "Same speedup mechanic again, this time for your Shipbuilding queue (constructing/repairing ships). Spend any you have queued or stockpiled today.",
-              image: null,
+              imageRow: [
+                { image: "assets/images/tech/speedup-ship-3h.png", alt: "3 hour Shipbuilding Speedup" },
+                { image: "assets/images/tech/speedup-ship-1h.png", alt: "1 hour Shipbuilding Speedup" },
+                { image: "assets/images/tech/speedup-ship-30m.png", alt: "30 minute Shipbuilding Speedup" },
+                { image: "assets/images/tech/speedup-ship-15m.png", alt: "15 minute Shipbuilding Speedup" },
+                { image: "assets/images/tech/speedup-ship-5m.png", alt: "5 minute Shipbuilding Speedup" },
+              ],
+              imageCaption: "Shipbuilding Speedups — every denomination counts toward this row.",
               notes: {
                 findWhere: ["Shipbuilding/Speedup rewards from commissions, events, and shop bundles"],
                 useWhere: ["Shipyard screen → queue a build → apply Speedups to reduce its timer"],
@@ -690,7 +702,8 @@ const EVENT_DATA = {
               points: 6000,
               description:
                 "Launching a rally against a Lvl 1-10 Tribute Vessel and successfully defeating it earns this reward once. Tribute Vessels are lower-level targets, so this should be achievable without needing to organize a large guild rally.",
-              image: null,
+              image: "assets/images/tech/tribute-vessel.png",
+              imageCaption: "A Tribute Vessel (Lvl 10) on the galaxy map.",
               notes: {
                 findWhere: ["Galaxy map — Tribute Vessels appear as their own map targets, separate from Ruins"],
                 useWhere: ["Select a Lvl 1-10 Tribute Vessel on the map → Rally to attack it with your fleet(s)"],
@@ -830,11 +843,12 @@ const EVENT_DATA = {
               title: "Complete trade shipping 3 times",
               points: 500,
               description:
-                "A trade/shipping-route action — complete 3 of them today for a flat bonus. Mechanics aren't confirmed here, so check in-game for exactly what counts as \"completing\" one.",
-              image: null,
+                "A trade/shipping-route action tied to supply ships on the galaxy map (shown here as \"Logistical Supply Prep\") — complete 3 of them today for a flat bonus. The exact completion requirement per run isn't confirmed here, so check in-game for details.",
+              image: "assets/images/tech/trade-shipping.png",
+              imageCaption: "A Logistical Supply Prep task on a supply ship, found on the galaxy map.",
               notes: {
-                findWhere: ["Verify in-game — likely tied to a trade route or caravan/shipping feature"],
-                useWhere: ["Verify in-game — likely the same trade/shipping screen"],
+                findWhere: ["Galaxy map — supply ships/trade routes appear as their own map targets"],
+                useWhere: ["Tap the supply ship's task marker (the + icon shown here) to assign/complete it"],
               },
             },
             {
