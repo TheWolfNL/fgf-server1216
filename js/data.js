@@ -427,8 +427,506 @@ const EVENT_DATA = {
         },
       ],
     },
-    { id: 4, label: "Day 4", phase: "Preparation", available: false, sections: [] },
-    { id: 5, label: "Day 5", phase: "Preparation", available: false, sections: [] },
+    {
+      id: 4,
+      label: "Day 4",
+      phase: "Preparation",
+      available: true,
+      sections: [
+        {
+          title: "Ultimate Flagship",
+          items: [
+            {
+              title: "Boost Power by 1 (Flagship)",
+              points: 1,
+              description:
+                "Any Flagship Power gained today counts — upgrading, unlocking, or advancing the flagship, or developing flagship components all raise it. Like the Champion Power row on Day 2, this stacks passively alongside every other action in this table.",
+              image: "assets/images/items/flagship-boost-power.png",
+              imageCaption:
+                "Flagship component slots — each shows the Power bonus (+3, +4, +6) it grants at its current level.",
+              notes: {
+                findWhere: ["Not something you \"find\" directly — a side effect of the flagship actions below"],
+                useWhere: ["Flagship screen → upgrade/unlock/advance the flagship, or develop its components"],
+              },
+            },
+            {
+              title: "Consume 1 Flagship Blueprint",
+              points: 2000,
+              description:
+                "Flagship Blueprints are spent to unlock or advance the flagship itself — the single highest-value action in this table. Note this is a different item from the Expansion Blueprints called out in the banner at the top of the page, so it's safe to use normally.",
+              imageRow: [
+                { image: "assets/images/items/flagship-blueprint-1.png", alt: "Flagship Blueprint" },
+                { image: "assets/images/items/flagship-blueprint-2.png", alt: "Flagship Blueprint" },
+                { image: "assets/images/items/flagship-blueprint-3.png", alt: "Flagship Blueprint" },
+              ],
+              imageCaption: "Flagship Blueprints — several variants, all count toward this row.",
+              notes: {
+                findWhere: ["Commission, event, and shop rewards — verify your own reward mail for the exact source"],
+                useWhere: ["Flagship screen → unlock/advance the flagship"],
+              },
+            },
+            {
+              title: "Spend 1× Prismatic Core",
+              points: 800,
+              description:
+                "A flagship-related crafting material. If you have any stockpiled, spending them today converts otherwise-idle inventory into event points.",
+              image: "assets/images/items/prismatic-core.png",
+              imageCaption: "Prismatic Core.",
+              notes: {
+                findWhere: ["Commission, event, and shop rewards — verify your own reward mail for the exact source"],
+                useWhere: ["Flagship screens that call for it as an ingredient"],
+              },
+            },
+            {
+              title: "Earn 1 Credit through packs",
+              points: 4,
+              description:
+                "Same as previous days — Credits earned automatically from qualifying shop pack purchases. Time any planned purchase during the event window for the extra points.",
+              image: "assets/images/items/credits.png",
+              imageCaption: "Credits, earned from qualifying shop pack purchases.",
+              notes: {
+                findWhere: ["Received when purchasing packs", "Rewards"],
+                useWhere: ["Discount shop", "Regular shop"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Common)",
+              points: 2000,
+              description:
+                "Commissions are the guild/personal task board assignments. Common-quality commissions are the easiest to roll and complete, making this one of the most reliable, repeatable point sources in the table.",
+              image: "assets/images/commissions/common-example.png",
+              imageCaption: "A Common-quality commission tile on the task board.",
+              notes: {
+                findWhere: [
+                  "Commissions board (accepts new commissions periodically; quality is randomized on roll)",
+                ],
+                useWhere: [
+                  "Complete the commission's requirement, then claim it from the same board for the reward and event points",
+                ],
+              },
+            },
+            {
+              title: "Complete 1 commission (Uncommon)",
+              points: 2500,
+              description:
+                "Same commission system, Uncommon quality. Slightly harder to obtain than Common but worth more — complete whichever quality you have queued rather than waiting for a specific tier.",
+              image: "assets/images/commissions/uncommon.png",
+              imageCaption: "Uncommon commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Rare)",
+              points: 2750,
+              description:
+                "Rare-quality commission completion. Keep your commission slots full throughout the day so you're never sitting idle between rolls.",
+              image: "assets/images/commissions/rare.png",
+              imageCaption: "Rare commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Epic)",
+              points: 3000,
+              description:
+                "Epic-quality commission completion. These take longer or need better resources to fulfill, but the point value reflects that — worth prioritizing if you can choose between commissions to run.",
+              image: "assets/images/commissions/epic.png",
+              imageCaption: "Epic commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Legendary)",
+              points: 3250,
+              description:
+                "The highest-value commission tier. If a Legendary commission is available, it's almost always worth completing over a lower tier, since the point gap is small relative to the resource cost.",
+              image: "assets/images/commissions/legendary.png",
+              imageCaption: "Legendary commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 5,
+      label: "Day 5",
+      phase: "Preparation",
+      available: true,
+      sections: [
+        {
+          title: "Dash Phase",
+          items: [
+            {
+              title: "Every 1m Build Speedups consumed",
+              points: 16,
+              description:
+                "Counts every 1 minute of Build (base construction) Speedup you consume today. Same mechanic as the Technology Speedup row below, just for your construction queue instead of research — queue a long building upgrade and dump speedups into it.",
+              image: null,
+              notes: {
+                findWhere: ["Build/Speedup rewards from commissions, events, and shop bundles"],
+                useWhere: ["Base/Construction screen → queue an upgrade → apply Speedups to reduce its timer"],
+              },
+            },
+            {
+              title: "Every 1m Technology Speedups consumed",
+              points: 16,
+              description:
+                "Counts every 1 minute of Technology (research) Speedup you consume, added up across all your speedup use today. Speedups come in several durations (5m up to 8h+); queuing a long research item and dumping speedups into it is a simple, reliable way to rack up a large chunk of these points in one action.",
+              imageRow: [
+                { image: "assets/images/tech/speedup-5m.png", alt: "5 minute Technology Speedup" },
+                { image: "assets/images/tech/speedup-15m.png", alt: "15 minute Technology Speedup" },
+                { image: "assets/images/tech/speedup-1h.png", alt: "1 hour Technology Speedup" },
+                { image: "assets/images/tech/speedup-3h.png", alt: "3 hour Technology Speedup" },
+                { image: "assets/images/tech/speedup-8h.png", alt: "8 hour Technology Speedup" },
+              ],
+              imageCaption: "Technology Speedups — every denomination counts toward the same row.",
+              notes: {
+                findWhere: ["Research/Speedup rewards from commissions, events, and shop bundles"],
+                useWhere: ["Research (Technology) screen → queue an item → apply Speedups to reduce its timer"],
+              },
+            },
+            {
+              title: "Consume 1 minute of Shipbuilding Speedup",
+              points: 16,
+              description:
+                "Same speedup mechanic again, this time for your Shipbuilding queue (constructing/repairing ships). Spend any you have queued or stockpiled today.",
+              image: null,
+              notes: {
+                findWhere: ["Shipbuilding/Speedup rewards from commissions, events, and shop bundles"],
+                useWhere: ["Shipyard screen → queue a build → apply Speedups to reduce its timer"],
+              },
+            },
+            {
+              title: "Consume 1 Champion Fragment (Legendary)",
+              points: 2000,
+              description:
+                "Spend a Champion Fragment to unlock a new Champion, activate a slot on the Wall of Honor, or promote a Legendary-rarity Champion. This is one of the highest-value single actions in the table — prioritize any Legendary fragment consumption you were already planning.",
+              fragmentGallery: {
+                rarity: "legendary",
+                rows: [3, 3, 3],
+                items: [
+                  { image: "assets/images/fragments/legendary/empty-slot.png", alt: "Empty Legendary fragment slot" },
+                  { image: "assets/images/fragments/legendary/champion-10.png", alt: "Legendary Champion fragment" },
+                  { image: "assets/images/fragments/legendary/champion-17.png", alt: "Legendary Champion fragment" },
+                  { image: "assets/images/fragments/legendary/champion-06.png", alt: "Legendary Champion fragment" },
+                  { image: "assets/images/fragments/legendary/champion-10b.png", alt: "Legendary Champion fragment" },
+                  { image: "assets/images/fragments/legendary/champion-03.png", alt: "Legendary Champion fragment" },
+                  { image: "assets/images/fragments/legendary/champion-02.png", alt: "Legendary Champion fragment" },
+                  { image: "assets/images/fragments/legendary/champion-33.png", alt: "Legendary Champion fragment" },
+                  { image: "assets/images/fragments/legendary/champion-eva.png", alt: "Eva — Legendary Champion fragment" },
+                ],
+              },
+              notes: {
+                findWhere: [
+                  "Commission and event rewards (including these Talent Recruitment milestones)",
+                  "Recruitment/summon pulls that give shards instead of a full Champion",
+                  "Shop bundles and the Commerce Guild / guild shop, when a specific Champion's fragments are on sale",
+                  "Verify against your own reward mail — exact fragment sources aren't officially documented and vary by patch",
+                ],
+                useWhere: [
+                  "Champions screen → the specific Champion's page, to unlock or promote them once you hit the fragment threshold",
+                  "Wall of Honor screen, to activate or upgrade a displayed slot",
+                ],
+              },
+            },
+            {
+              title: "Consume 1 Champion Fragment (Epic)",
+              points: 100,
+              description:
+                "Same actions as above (unlock / Wall of Honor / promote), but for Epic-rarity Champions. Worth far less than the Legendary version, so don't burn Legendary fragments early just to farm this row — spend Epic fragments here instead.",
+              fragmentGallery: {
+                rarity: "epic",
+                rows: [1, 3, 3],
+                items: [
+                  { image: "assets/images/fragments/epic/empty-slot.png", alt: "Empty Epic fragment slot" },
+                  { image: "assets/images/fragments/epic/champion-15.png", alt: "Epic Champion fragment" },
+                  { image: "assets/images/fragments/epic/champion-08.png", alt: "Epic Champion fragment" },
+                  { image: "assets/images/fragments/epic/champion-37.png", alt: "Epic Champion fragment" },
+                  { image: "assets/images/fragments/epic/champion-27.png", alt: "Epic Champion fragment" },
+                  { image: "assets/images/fragments/epic/champion-41.png", alt: "Epic Champion fragment" },
+                  { image: "assets/images/fragments/epic/champion-34.png", alt: "Epic Champion fragment" },
+                ],
+              },
+              notes: {
+                findWhere: [
+                  "Same sources as Legendary fragments, just for Epic-rarity Champions — commissions, event rewards, recruitment pulls, and shop/guild-shop bundles",
+                ],
+                useWhere: [
+                  "Champions screen → the specific Champion's page, to unlock or promote them",
+                  "Wall of Honor screen, to activate or upgrade a displayed slot",
+                ],
+              },
+            },
+            {
+              title: "Increase Power by 1 (Champion)",
+              points: 1,
+              description:
+                "Any account Power gained today counts — leveling Champions, unlocking new ones, or promoting them all raise Power. Because this scales with the size of your account, it passively stacks alongside every other action in this table.",
+              image: "assets/images/items/level-up-button.png",
+              imageCaption:
+                "The Level Up button on a Champion's page — each level costs the resource shown and raises Power.",
+              notes: {
+                findWhere: [
+                  "Not something you \"find\" directly — Power goes up as a side effect of leveling, unlocking, or promoting Champions",
+                ],
+                useWhere: [
+                  "Champions screen → pick a Champion → Level Up button (costs that Champion's leveling material)",
+                  "Also rises from unlocking a new Champion or promoting one with fragments",
+                ],
+              },
+            },
+            {
+              title: "Launch a rally and earn Tribute Vessel rewards",
+              points: 6000,
+              description:
+                "Launching a rally against a Lvl 1-10 Tribute Vessel and successfully defeating it earns this reward once. Tribute Vessels are lower-level targets, so this should be achievable without needing to organize a large guild rally.",
+              image: null,
+              notes: {
+                findWhere: ["Galaxy map — Tribute Vessels appear as their own map targets, separate from Ruins"],
+                useWhere: ["Select a Lvl 1-10 Tribute Vessel on the map → Rally to attack it with your fleet(s)"],
+              },
+            },
+            {
+              title: "Consume 1 Flagship Blueprint",
+              points: 2000,
+              description:
+                "Flagship Blueprints are spent to unlock or advance the flagship itself — one of the highest-value actions in this table. Note this is a different item from the Expansion Blueprints called out in the banner at the top of the page, so it's safe to use normally.",
+              imageRow: [
+                { image: "assets/images/items/flagship-blueprint-1.png", alt: "Flagship Blueprint" },
+                { image: "assets/images/items/flagship-blueprint-2.png", alt: "Flagship Blueprint" },
+                { image: "assets/images/items/flagship-blueprint-3.png", alt: "Flagship Blueprint" },
+              ],
+              imageCaption: "Flagship Blueprints — several variants, all count toward this row.",
+              notes: {
+                findWhere: ["Commission, event, and shop rewards — verify your own reward mail for the exact source"],
+                useWhere: ["Flagship screen → unlock/advance the flagship"],
+              },
+            },
+            {
+              title: "Boost Power by 1 (Flagship)",
+              points: 1,
+              description:
+                "Any Flagship Power gained today counts — upgrading, unlocking, or advancing the flagship, or developing flagship components all raise it. Stacks passively alongside every other action in this table.",
+              image: "assets/images/items/flagship-boost-power.png",
+              imageCaption:
+                "Flagship component slots — each shows the Power bonus (+3, +4, +6) it grants at its current level.",
+              notes: {
+                findWhere: ["Not something you \"find\" directly — a side effect of the flagship actions below"],
+                useWhere: ["Flagship screen → upgrade/unlock/advance the flagship, or develop its components"],
+              },
+            },
+            {
+              title: "Perform 1 Map Search",
+              points: 180000,
+              description:
+                "Map Search scans the galaxy map around your position for points of interest — Ruins, monsters, and other targets. By far the single highest-value action in this table, so use every search you have during the event window rather than letting them sit banked.",
+              image: "assets/images/tech/map-search.png",
+              imageCaption: "Raych Seldon's Chrono Map — the Map Search screen.",
+              notes: {
+                findWhere: [
+                  "When recruiting crew with a Deep Space Beacon, there's a small chance to receive a Stellar Fragment I–V (used for this search) — otherwise buy a random or choice box from the Valor Shop",
+                ],
+                useWhere: ["Ship → Crew → Crew Member Recruitment → tab at the bottom"],
+              },
+            },
+            {
+              title: "Spend 1× Prismatic Core",
+              points: 800,
+              description:
+                "A flagship-related crafting material. If you have any stockpiled, spending them today converts otherwise-idle inventory into event points.",
+              image: "assets/images/items/prismatic-core.png",
+              imageCaption: "Prismatic Core.",
+              notes: {
+                findWhere: ["Commission, event, and shop rewards — verify your own reward mail for the exact source"],
+                useWhere: ["Flagship screens that call for it as an ingredient"],
+              },
+            },
+            {
+              title: "Spend 1× Legendary Training Manual",
+              points: 200,
+              description:
+                "Training Manuals are used to level up a Champion's skills. If you're sitting on a stockpile, today is a good day to spend them — each one used counts toward the event score in addition to its normal in-game benefit.",
+              image: "assets/images/items/legendary-training-manual.png",
+              imageCaption: "Legendary Training Manual.",
+              notes: {
+                findWhere: [
+                  "Commission and event rewards, shop bundles, and guild shop — same general sources as fragments",
+                  "Verify your own reward mail for the exact source; not officially documented",
+                ],
+                useWhere: ["Champions screen → a Champion's Skills tab, to upgrade one of their skills"],
+              },
+            },
+            {
+              title: "Spend 1× Computational Component",
+              points: 200,
+              description:
+                "A crafting/research material used on the tech side of progression. If you're holding a stock of these, spending them during the event turns otherwise-idle inventory into event points.",
+              image: "assets/images/tech/computational-component.png",
+              imageCaption: "Computational Component.",
+              notes: {
+                findWhere: ["Event rewards", "Computational Component pack"],
+                useWhere: ["Technology → Commerce Guild Duel tree", "Combat Craft Modification tree"],
+              },
+            },
+            {
+              title: "Spend 1× Deep Space Beacon",
+              points: 400,
+              description:
+                "Deep Space Beacons relate to the Ruins/exploration system. Spend any you have stockpiled during the event for the points, same logic as the other \"spend\" rows in this table.",
+              image: "assets/images/tech/deep-space-beacon.png",
+              imageCaption: "Deep Space Beacon.",
+              notes: {
+                findWhere: ["Commerce Guild shop", "Discount shop", "Beacon pack"],
+                useWhere: ["Ship → Crew → Crew Member Recruitment"],
+              },
+            },
+            {
+              title: "Spend 1× Echo Module",
+              points: 40,
+              description:
+                "A lower-value spend item, likely tied to the same exploration/Ruins system as Deep Space Beacons and Echoes of Deep Space below. Cheap to spend, so clear your stock of these before worrying about the higher-value rows.",
+              image: "assets/images/tech/echo-module.png",
+              imageCaption: "Echo Module.",
+              notes: {
+                findWhere: ["Crew Recruitment rewards", "Beacon pack / Map pack"],
+                useWhere: ["Ship → Crew → Heroic Crew Assignment → Enhance Nexus"],
+              },
+            },
+            {
+              title: "Spend 1× Echoes of Deep Space",
+              points: 8000,
+              description:
+                "One of the best points-per-item spends in this whole table. If you have any of these banked, spending them during the event window is a priority — don't save them for later.",
+              image: "assets/images/tech/echoes-of-deep-space.png",
+              imageCaption: "Echoes of Deep Space.",
+              notes: {
+                findWhere: ["Crew Recruitment rewards", "Beacon pack / Map pack"],
+                useWhere: ["Ship → Crew → Heroic Crew Assignment → Enhance Nexus"],
+              },
+            },
+            {
+              title: "Earn 1 Credit through packs",
+              points: 4,
+              description:
+                "Same as previous days — Credits earned automatically from qualifying shop pack purchases. Time any planned purchase during the event window for the extra points.",
+              image: "assets/images/items/credits.png",
+              imageCaption: "Credits, earned from qualifying shop pack purchases.",
+              notes: {
+                findWhere: ["Received when purchasing packs", "Rewards"],
+                useWhere: ["Discount shop", "Regular shop"],
+              },
+            },
+            {
+              title: "Complete trade shipping 3 times",
+              points: 500,
+              description:
+                "A trade/shipping-route action — complete 3 of them today for a flat bonus. Mechanics aren't confirmed here, so check in-game for exactly what counts as \"completing\" one.",
+              image: null,
+              notes: {
+                findWhere: ["Verify in-game — likely tied to a trade route or caravan/shipping feature"],
+                useWhere: ["Verify in-game — likely the same trade/shipping screen"],
+              },
+            },
+            {
+              title: "Excavate a Ruin of Legendary quality once",
+              points: 15000,
+              description:
+                "Ruins come in different quality tiers, and excavating a Legendary-quality one is a one-time flat bonus for the day — it doesn't stack with repeats. Prioritize a Legendary Ruin over lower-quality ones if you're choosing which to excavate today.",
+              image: "assets/images/tech/legendary-ruins.png",
+              imageCaption: "A Legendary-quality Ruin, with its excavation timer.",
+              notes: {
+                useWhere: ["Ruins → Excavation tab"],
+              },
+            },
+            {
+              title: "Successfully plunder a Ruin 1 time",
+              points: 25000,
+              description:
+                "Plundering (raiding another player's or an NPC's Ruin) is worth even more than excavating one yourself. Only counts on a successful plunder, so pick a target you can actually beat.",
+              image: "assets/images/tech/plunder-example.png",
+              imageCaption: "A Ruin already claimed by another player — a plunder target.",
+              notes: {
+                useWhere: ["Ruins → Plunder tab"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Common)",
+              points: 2000,
+              description:
+                "Commissions are the guild/personal task board assignments. Common-quality commissions are the easiest to roll and complete, making this one of the most reliable, repeatable point sources in the table.",
+              image: "assets/images/commissions/common-example.png",
+              imageCaption: "A Common-quality commission tile on the task board.",
+              notes: {
+                findWhere: [
+                  "Commissions board (accepts new commissions periodically; quality is randomized on roll)",
+                ],
+                useWhere: [
+                  "Complete the commission's requirement, then claim it from the same board for the reward and event points",
+                ],
+              },
+            },
+            {
+              title: "Complete 1 commission (Uncommon)",
+              points: 2500,
+              description:
+                "Same commission system, Uncommon quality. Slightly harder to obtain than Common but worth more — complete whichever quality you have queued rather than waiting for a specific tier.",
+              image: "assets/images/commissions/uncommon.png",
+              imageCaption: "Uncommon commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Rare)",
+              points: 2750,
+              description:
+                "Rare-quality commission completion. Keep your commission slots full throughout the day so you're never sitting idle between rolls.",
+              image: "assets/images/commissions/rare.png",
+              imageCaption: "Rare commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Epic)",
+              points: 3000,
+              description:
+                "Epic-quality commission completion. These take longer or need better resources to fulfill, but the point value reflects that — worth prioritizing if you can choose between commissions to run.",
+              image: "assets/images/commissions/epic.png",
+              imageCaption: "Epic commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+            {
+              title: "Complete 1 commission (Legendary)",
+              points: 3250,
+              description:
+                "The highest-value commission tier. If a Legendary commission is available, it's almost always worth completing over a lower tier, since the point gap is small relative to the resource cost.",
+              image: "assets/images/commissions/legendary.png",
+              imageCaption: "Legendary commission quality banner.",
+              notes: {
+                findWhere: ["Commissions board, same as Common — quality is randomized on roll"],
+                useWhere: ["Complete the requirement and claim it from the board"],
+              },
+            },
+          ],
+        },
+      ],
+    },
     { id: 6, label: "Day 6", phase: "Battle Day", available: false, sections: [] },
   ],
 };
